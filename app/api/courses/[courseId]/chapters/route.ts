@@ -1,6 +1,7 @@
-import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+
+import { db } from "@/lib/db";
 
 export async function POST(
   req: Request,
@@ -8,28 +9,42 @@ export async function POST(
 ) {
   try {
     const { userId } = auth();
-    const { courseId } = params;
     const { title } = await req.json();
-    if (!userId) return new NextResponse("Unauthorized", { status: 401 });
+
+    if (!userId) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
 
     const courseOwner = await db.course.findUnique({
-      where: { id: courseId, userId },
+      where: {
+        id: params.courseId,
+        userId: userId,
+      }
     });
-    const lastChapter = await db.chapter.findFirst({
-      where: { courseId },
-      orderBy: { position: "desc" },
-    });
-    const newPosition = lastChapter ? lastChapter.position + 1 : 1;
 
-    if (!courseOwner) return new NextResponse("Unauthorized", { status: 401 });
+    if (!courseOwner) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const lastChapter = await db.chapter.findFirst({
+      where: {
+        courseId: params.courseId,
+      },
+      orderBy: {
+        position: "desc",
+      },
+    });
+
+    const newPosition = lastChapter ? lastChapter.position + 1 : 1;
 
     const chapter = await db.chapter.create({
       data: {
         title,
-        courseId,
+        courseId: params.courseId,
         position: newPosition,
-      },
+      }
     });
+
     return NextResponse.json(chapter);
   } catch (error) {
     console.log("[CHAPTERS]", error);

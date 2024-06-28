@@ -31,8 +31,8 @@ export const CourseMobileSidebar = ({
       </SheetTrigger>
       <SheetContent side="left" className="p-0  w-72">
         <CourseSidebar
-            course={course}
-            progressCount={progressCount}
+          course={course}
+          progressCount={progressCount}
         />
       </SheetContent>
     </Sheet>

@@ -1,6 +1,7 @@
-import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+
+import { db } from "@/lib/db";
 
 export async function PATCH(
   req: Request,
@@ -8,33 +9,53 @@ export async function PATCH(
 ) {
   try {
     const { userId } = auth();
-    const { courseId, chapterId } = params;
 
-    if (!userId) return new NextResponse("Unauthorized", { status: 401 });
+    if (!userId) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
 
     const ownCourse = await db.course.findUnique({
-      where: { id: courseId, userId },
+      where: {
+        id: params.courseId,
+        userId,
+      },
     });
 
-    if (!ownCourse) return new NextResponse("Unauthorized", { status: 401 });
+    if (!ownCourse) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
 
     const unpublishedChapter = await db.chapter.update({
-      where: { id: chapterId, courseId },
-      data: { isPublished: false },
+      where: {
+        id: params.chapterId,
+        courseId: params.courseId,
+      },
+      data: {
+        isPublished: false,
+      },
     });
+
     const publishedChaptersInCourse = await db.chapter.findMany({
-      where: { courseId, isPublished: true },
+      where: {
+        courseId: params.courseId,
+        isPublished: true,
+      },
     });
 
     if (!publishedChaptersInCourse.length) {
       await db.course.update({
-        where: { id: courseId },
-        data: { isPublished: false },
+        where: {
+          id: params.courseId,
+        },
+        data: {
+          isPublished: false,
+        },
       });
     }
+
     return NextResponse.json(unpublishedChapter);
   } catch (error) {
-    console.log("CHAPTER_UNPUBLISH", error);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    console.log("[CHAPTER_UNPUBLISH]", error);
+    return new NextResponse("Internal Error", { status: 500 });
   }
 }

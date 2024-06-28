@@ -21,7 +21,7 @@ CREATE TABLE "Course" (
     "userId" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT,
-    "imgUrl" TEXT,
+    "imageUrl" TEXT,
     "price" DOUBLE PRECISION,
     "isPublished" BOOLEAN NOT NULL DEFAULT false,
     "categoryId" TEXT,
@@ -137,6 +137,9 @@ CREATE UNIQUE INDEX "UserProgress_userId_chapterId_key" ON "UserProgress"("userI
 
 -- CreateIndex
 CREATE INDEX "Purchase_courseId_idx" ON "Purchase"("courseId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Purchase_userId_courseId_key" ON "Purchase"("userId", "courseId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "StripeCustomer_userId_key" ON "StripeCustomer"("userId");

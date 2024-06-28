@@ -13,7 +13,7 @@ interface CourseNavbarProps {
   };
   progressCount: number;
   currentProfile?: SafeProfile | null;
-}
+};
 
 
 export const CourseNavbar = ({
@@ -23,6 +23,7 @@ export const CourseNavbar = ({
 }: CourseNavbarProps) => {
 
   return (
+
       <div className="p-4 border-b h-full flex items-center  shadow-sm">
         <CourseMobileSidebar
           course={course}
@@ -30,5 +31,6 @@ export const CourseNavbar = ({
         />
         <NavbarRoutes currentProfile={currentProfile} />      
       </div>
+
   )
 }

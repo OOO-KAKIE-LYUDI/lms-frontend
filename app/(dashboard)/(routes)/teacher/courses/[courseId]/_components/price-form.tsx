@@ -2,8 +2,13 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Pencil } from "lucide-react";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { Course } from "@prisma/client";
 
 import {
   Form,
@@ -13,37 +18,38 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Pencil } from "lucide-react";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
-import { Course } from "@prisma/client";
+import { cn } from "@/lib/utils"; 
 import { Input } from "@/components/ui/input";
 import { formatPrice } from "@/lib/format";
+
+interface PriceFormProps {
+  initialData: Course;
+  courseId: string;
+};
 
 const formSchema = z.object({
   price: z.coerce.number(),
 });
 
-interface PriceFormProps {
-  initialData: Course;
-  courseId: string;
-}
-
-const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
+export default function PriceForm({
+  initialData,
+  courseId
+}: PriceFormProps) {
   const [isEditing, setIsEditing] = useState(false);
+
+  const toggleEdit = () => setIsEditing((current) => !current);
+
   const router = useRouter();
 
-  const toggleEdit = () => {
-    setIsEditing((current) => !current);
-  };
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { price: initialData?.price || undefined },
+    defaultValues: {
+      price: initialData?.price || undefined
+    },
   });
+
   const { isSubmitting, isValid } = form.formState;
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
@@ -53,11 +59,12 @@ const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
     } catch {
       toast.error("Something went wrong");
     }
-  };
+  }
+
   return (
-    <div className="mt-6 border bg-slate-100 rounded-md p-4">
+    <div className="mt-6 border bg-slate-100 rounded-md p-4 dark:bg-gray-800">
       <div className="font-medium flex items-center justify-between">
-        Course Price
+        Course price
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
@@ -70,13 +77,14 @@ const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
         </Button>
       </div>
       {!isEditing && (
-        <p
-          className={cn(
-            "text-sm mt-2",
-            !initialData?.price && "italic text-slate-500"
-          )}
-        >
-          {initialData?.price ? formatPrice(initialData.price) : "No price"}
+        <p className={cn(
+          "text-sm mt-2",
+          !initialData.price && "text-slate-500 italic"
+        )}>
+          {initialData.price 
+            ? formatPrice(initialData.price)
+            : "No price set"         
+          }
         </p>
       )}
       {isEditing && (
@@ -104,15 +112,20 @@ const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Button disabled={!isValid || isSubmitting} type="submit">
+              <Button
+                disabled={!isValid || isSubmitting}
+                type="submit"
+              >
                 Save
               </Button>
             </div>
+
+            
           </form>
         </Form>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default PriceForm;
+export { PriceForm };

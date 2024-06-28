@@ -8,7 +8,10 @@ import { Menu } from "lucide-react";
 import { Sidebar } from "./Sidebar";
 
 export const MobileSidebar = () => {
+
+    
     return (
+
         <Sheet>
             <SheetTrigger className="md:hidden pr-4 hover:opacity-75 transition">
                 <Menu />
@@ -17,5 +20,6 @@ export const MobileSidebar = () => {
                 <Sidebar />
             </SheetContent>
         </Sheet>
+
     )
 }

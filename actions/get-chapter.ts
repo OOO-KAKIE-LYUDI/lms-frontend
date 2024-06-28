@@ -1,3 +1,4 @@
+import { AttachmentForm } from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/attachment-form";
 import { db } from "@/lib/db";
 import { Attachment, Chapter } from "@prisma/client";
 
@@ -6,7 +7,7 @@ interface getChapterProps {
     userId: string;
     courseId: string;
     chapterId: string;
-}
+};
 
 export const getChapter = async ({ 
     userId, 

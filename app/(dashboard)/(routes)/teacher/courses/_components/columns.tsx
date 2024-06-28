@@ -1,18 +1,22 @@
-"use client";
+"use client"
+
+import { Course } from "@prisma/client"
+import { ColumnDef } from "@tanstack/react-table"
+import { ArrowUpDown, MoreHorizontal, Pencil } from "lucide-react"
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { Course } from "@prisma/client";
-import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal, Pencil } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+
+// 6:47:00 in Build a Course & LMS Platform:
+// https://youtu.be/Big_aFLmekI?t=24446
 export const columns: ColumnDef<Course>[] = [
   {
     accessorKey: "title",
@@ -25,7 +29,7 @@ export const columns: ColumnDef<Course>[] = [
           Title
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      );
+      )
     },
   },
   {
@@ -39,16 +43,17 @@ export const columns: ColumnDef<Course>[] = [
           Price
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      );
+      )
     },
     cell: ({ row }) => {
       const price = parseFloat(row.getValue("price") || "0");
-      const formatted = new Intl.NumberFormat("en-Us", {
+      const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
-        currency: "USD",
+        currency: "USD"
       }).format(price);
-      return <>{formatted}</>;
-    },
+
+      return <div>{formatted}</div>
+    }
   },
   {
     accessorKey: "isPublished",
@@ -61,21 +66,26 @@ export const columns: ColumnDef<Course>[] = [
           Published
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      );
+      )
     },
     cell: ({ row }) => {
       const isPublished = row.getValue("isPublished") || false;
+
       return (
-        <Badge className={cn("bg-slate-500", isPublished && "bg-sky-700")}>
+        <Badge className={cn(
+          "bg-slate-500",
+          isPublished && "bg-sky-700"
+        )}>
           {isPublished ? "Published" : "Draft"}
         </Badge>
-      );
-    },
+      )
+    }
   },
   {
     id: "actions",
     cell: ({ row }) => {
       const { id } = row.original;
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -96,4 +106,4 @@ export const columns: ColumnDef<Course>[] = [
       );
     },
   },
-];
+]

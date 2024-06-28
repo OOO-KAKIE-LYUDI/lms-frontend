@@ -1,4 +1,5 @@
-import { auth } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 import { File } from "lucide-react";
 
 import { getChapter } from "@/actions/get-chapter";
@@ -9,7 +10,6 @@ import { Preview } from "@/components/preview";
 import { VideoPlayer } from "./_components/video-player";
 import { CourseEnrollButton } from "./_components/course-enroll-button";
 import { CourseProgressButton } from "./_components/course-progress-button";
-import {NextResponse} from "next/server";
 
 const ChapterIdPage = async ({
   params
@@ -19,7 +19,7 @@ const ChapterIdPage = async ({
   const { userId } = auth();
   
   if (!userId) {
-    return new NextResponse("Unauthorized", { status: 401 });
+    return redirect("/");
   } 
 
   const {
@@ -37,7 +37,7 @@ const ChapterIdPage = async ({
   });
 
   if (!chapter || !course) {
-    return
+    return redirect("/")
   }
 
 
