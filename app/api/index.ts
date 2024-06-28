@@ -1,13 +1,16 @@
 import axios, {AxiosInstance} from 'axios';
-import {cookies} from "next/headers";
+import { useCookies } from 'next-client-cookies';
 
 const api: AxiosInstance = axios.create({
     baseURL: 'http://localhost:8088/api',
 })
 
+/*
 api.interceptors.request.use(
     (config) => {
-        const token = cookies().get('token');
+        const cookies = useCookies();
+        console.log(document.cookie)
+        const token = cookies.get('token');
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }
@@ -17,5 +20,6 @@ api.interceptors.request.use(
         return Promise.reject(error)
     }
 )
+*/
 
 export default api;

@@ -1,5 +1,5 @@
 import api from "@/app/api/index";
-import {cookies} from "next/headers";
+import { cookies } from "next/headers";
 
 
 export type LoginForm = {
@@ -37,7 +37,7 @@ export type RegisterForm = {
 
 const defaultRegisterForm = {
     name: "",
-    role: "USER",
+    role: "STUDENT",
 }
 
 

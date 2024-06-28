@@ -3,6 +3,9 @@ import { Sidebar } from "./_components/Sidebar";
 import { Navbar } from "./_components/navbar";
 import { redirect } from "next/navigation";
 import getSafeProfile  from "@/actions/get-safe-profile";
+import {Button} from "@/components/ui/button";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   const safeProfile = await getSafeProfile();

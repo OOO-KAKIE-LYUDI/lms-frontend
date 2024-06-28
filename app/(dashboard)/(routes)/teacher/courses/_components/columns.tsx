@@ -1,7 +1,5 @@
 "use client"
 
-import { Course } from "@prisma/client"
-import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal, Pencil } from "lucide-react"
 import Link from "next/link";
 
@@ -15,11 +13,11 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
-// 6:47:00 in Build a Course & LMS Platform:
-// https://youtu.be/Big_aFLmekI?t=24446
-export const columns: ColumnDef<Course>[] = [
+export const columns = [
   {
     accessorKey: "title",
+    // TODO: Переписать это говно
+    // @ts-ignore
     header: ({ column }) => {
       return (
         <Button
@@ -34,6 +32,8 @@ export const columns: ColumnDef<Course>[] = [
   },
   {
     accessorKey: "price",
+    // TODO: Переписать это говно
+    // @ts-ignore
     header: ({ column }) => {
       return (
         <Button
@@ -45,6 +45,8 @@ export const columns: ColumnDef<Course>[] = [
         </Button>
       )
     },
+    // TODO: Переписать это говно
+    // @ts-ignore
     cell: ({ row }) => {
       const price = parseFloat(row.getValue("price") || "0");
       const formatted = new Intl.NumberFormat("en-US", {
@@ -57,6 +59,8 @@ export const columns: ColumnDef<Course>[] = [
   },
   {
     accessorKey: "isPublished",
+    // TODO: Переписать это говно
+    // @ts-ignore
     header: ({ column }) => {
       return (
         <Button
@@ -68,6 +72,8 @@ export const columns: ColumnDef<Course>[] = [
         </Button>
       )
     },
+    // TODO: Переписать это говно
+    // @ts-ignore
     cell: ({ row }) => {
       const isPublished = row.getValue("isPublished") || false;
 
@@ -83,9 +89,10 @@ export const columns: ColumnDef<Course>[] = [
   },
   {
     id: "actions",
+    // TODO: Переписать это говно
+    // @ts-ignore
     cell: ({ row }) => {
-      const { id } = row.original;
-
+      const { courseId } = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -95,7 +102,7 @@ export const columns: ColumnDef<Course>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <Link href={`/teacher/courses/${id}`}>
+            <Link href={`/teacher/courses/${courseId}`}>
               <DropdownMenuItem>
                 <Pencil className="h-4 w-4 mr-2" />
                 Edit

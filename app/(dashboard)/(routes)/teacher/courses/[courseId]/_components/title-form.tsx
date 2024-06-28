@@ -51,7 +51,25 @@ export const TitleForm = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/courses/${courseId}`, values);
+/*      await axios.patch(`http://localhost:8088/api/courses/${courseId}`, values, {
+        headers: {
+          'Authorization': `Bearer eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJzLmJvc292MjAxMkB5YW5kZXgucnUiLCJleHAiOjE3MjMxOTU5MDQsInVzZXJJZCI6MSwiaWF0IjoxNzE5NTk1OTA0LCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU5JU1RSQVRPUiJ9XX0.EQSYvmGnIfQvpoaJtwaJxFSECDDzM5ZJyCQSZHAI2I4EYRiSG5gL6YHW5dtk_s7TpBNdwfE2s_AToklOy32lTiSaB5wzTzo5UdplV2Ae4vzd74i28cPYKjfwmK3wP9DF_TN91mPv-NPnYp1eiFA10J42n7iEchbZh1nLNMtRLLMahCIp3CzIPAUO7_0QQ6z7VJy3WK9qypByKMp30BGyextQkH4j5lRxfzemvEQjhmq8yLhKZSbaQ7BQn8bjLCY1lvgEiJ88Wtl5FsVQCPxvxTkeGdVP0VLb7oVqQSBsMw5T8Np7iZi5IuoWt7XF4dmloFKpikNWzYC32D6xu84ynA`
+
+        }
+      });*/
+
+      fetch(`http://localhost:8088/api/courses/${courseId}`, {
+        method: 'PATCH',
+        body: JSON.stringify(values),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJzLmJvc292MjAxMkB5YW5kZXgucnUiLCJleHAiOjE3MjMxOTU5MDQsInVzZXJJZCI6MSwiaWF0IjoxNzE5NTk1OTA0LCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU5JU1RSQVRPUiJ9XX0.EQSYvmGnIfQvpoaJtwaJxFSECDDzM5ZJyCQSZHAI2I4EYRiSG5gL6YHW5dtk_s7TpBNdwfE2s_AToklOy32lTiSaB5wzTzo5UdplV2Ae4vzd74i28cPYKjfwmK3wP9DF_TN91mPv-NPnYp1eiFA10J42n7iEchbZh1nLNMtRLLMahCIp3CzIPAUO7_0QQ6z7VJy3WK9qypByKMp30BGyextQkH4j5lRxfzemvEQjhmq8yLhKZSbaQ7BQn8bjLCY1lvgEiJ88Wtl5FsVQCPxvxTkeGdVP0VLb7oVqQSBsMw5T8Np7iZi5IuoWt7XF4dmloFKpikNWzYC32D6xu84ynA`
+        },
+      })
+          .then(response => response.json())
+          .then(data => console.log(data));
+
+      /*await api.patch(`/courses/${courseId}`, values)*/
       toast.success("Course title updated");
       toggleEdit();
       router.refresh();
@@ -62,7 +80,7 @@ export const TitleForm = ({
           toast.error(`Server responded with ${error.response.status} error`);
         } else if (error.request) {
           // The request was made but no response was received
-          toast.error("No response received from server");
+          toast.error("No response received from server!");
         } else {
           // Something happened in setting up the request that triggered an Error
           toast.error(`Error: ${error.message}`);

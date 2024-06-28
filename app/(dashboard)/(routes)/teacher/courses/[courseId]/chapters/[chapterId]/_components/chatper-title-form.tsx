@@ -64,7 +64,7 @@ export const ChapterTitleForm = ({
           toast.error(`Server responded with ${error.response.status} error`);
         } else if (error.request) {
           // The request was made but no response was received
-          toast.error("No response received from server");
+          toast.error("No response received from server!");
         } else {
           // Something happened in setting up the request that triggered an Error
           toast.error(`Error: ${error.message}`);

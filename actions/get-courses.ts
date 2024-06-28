@@ -53,7 +53,7 @@ export const getCourses = async ({
         userId,
       },
       headers: {
-        'Authorization': `Bearer eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJzLmJvc292MjAxMkB5YW5kZXgucnUiLCJleHAiOjE3MTk1ODIyODQsImlhdCI6MTcxOTU3ODY4NCwiYXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6IlVTRVIifV19.DJejmdLScaftw0kQ_VdJ5WSquzrPoVkh9NDgup8CfV_HRH3fLbz4rmn3PcmAVfw_4qDkmiDljPbS_b__RHC25dHd25A8c55O5MmO70CJjLEJx3GpPB2TtgxaaCL_-EfzUzylFkXz6TUyuz3dbtAn52pFZ2f_lwwIhptse5yQ7r8f2TrpzoSoNaxeLiBqSuM-iFcNxSUdoH4bVd2-3VUQrIA6OGtRRHZ0GT5Qr3QYrr3_fqaWiwsKg8Vm8JjZ22MljeZDMIAIZd-oJS0hoRWFqx6hx85xO6KOQ9Dk4DHihmgNWdaYMYCKRYWDeAR4SqdY0gdzpKcAwMk7IE4S-mfM5Q`
+        'Authorization': `Bearer ${process.env.GEYSUKA}`
       }
     });
 

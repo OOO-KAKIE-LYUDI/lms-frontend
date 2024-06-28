@@ -14,6 +14,7 @@ import { PriceForm } from "./_components/price-form";
 import { AttachmentForm } from "./_components/attachment-form";
 import { ChaptersForm } from "./_components/chapters-form";
 import { Actions } from "./_components/actions";
+import axios from "axios";
 
 const CourseIdPage = async ({
   params
@@ -26,24 +27,13 @@ const CourseIdPage = async ({
     return redirect("/");
   }
 
-  const course = await db.course.findUnique({
-    where: {
-      id: params.courseId,
-      userId
-    },
-    include: {
-      chapters: {
-        orderBy: {
-          position: "asc",
-        },
-      },
-      attachments: {
-        orderBy: {
-          createdAt: "desc",
-        },
-      },
-    },
+  const response = await axios.get(`http://localhost:8088/api/courses/${params.courseId}`, {
+    headers: {
+      'Authorization': `Bearer ${process.env.GEYSUKA}`
+    }
   });
+
+  const course = response.data;
 
   const categories = await db.category.findMany({
     orderBy: {
@@ -61,7 +51,7 @@ const CourseIdPage = async ({
     course.imageUrl,
     course.price,
     course.categoryId,
-    course.chapters.some(chapter => chapter.isPublished),
+    course.chapters.some((chapter: { isPublished: boolean; }) => chapter.isPublished),
   ];
 
   const totalFields = requiredFields.length;
@@ -104,7 +94,7 @@ const CourseIdPage = async ({
             </div>
             <TitleForm
               initialData={course}
-              courseId={course.id}
+              courseId={course.courseId}
             />
             <DescriptionForm
               initialData={course}
