@@ -60,7 +60,7 @@ const ChapterIdPage: React.FC<ChapterIdPageProps> = async ({ params }) => {
       {!chapter.isPublished && (
         <Banner
           variant="warning"
-          label="This chapter is unpublished. It will not be visible in the course"
+          label="Эта глава не опубликована. Она не будет видна в курсе."
         />
       )}
       <div className="p-6">
@@ -71,15 +71,15 @@ const ChapterIdPage: React.FC<ChapterIdPageProps> = async ({ params }) => {
                 className="flex items-center text-sm hover:opacity-75 transition mb-6"
             >
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to course setup
+                Вернуться к настройке курса
             </Link>
             <div className="flex items-center justify-between w-full">
                 <div className="flex flex-col gap-y-2">
-                <h1 className="text-2xl font-medium">Chapter Creation</h1>
+                <h1 className="text-2xl font-medium">Создание главы</h1>
                 </div>
             </div>
             <span className="text-sm text-slate-700 dark:text-slate-300 ">
-                Complete all fields {completionText}
+                Заполните все поля {completionText}
             </span>
             </div>
             <ChapterActions 
@@ -94,7 +94,7 @@ const ChapterIdPage: React.FC<ChapterIdPageProps> = async ({ params }) => {
             <div>
                 <div className="flex items-ceenter gap-x-2">
                 <IconBadge icon={LayoutDashboard} />
-                <h2 className="text-xl font-medium">Customize your chapter</h2>
+                <h2 className="text-xl font-medium">Настройте свою главу</h2>
                 </div>
                 <ChapterTitleForm
                 initialData={chapter}
@@ -109,7 +109,7 @@ const ChapterIdPage: React.FC<ChapterIdPageProps> = async ({ params }) => {
             </div>
             <div className="flex items-center gap-x-2">
                 <IconBadge icon={Eye} />
-                <h2 className="text-xl font-medium">Access Settings</h2>
+                <h2 className="text-xl font-medium">Настройки доступа</h2>
             </div>
             <ChapterAccessForm
                 initialData={chapter}
@@ -120,7 +120,7 @@ const ChapterIdPage: React.FC<ChapterIdPageProps> = async ({ params }) => {
             <div className="space-y-4">
             <div className="flex items-center gap-x-2">
                 <IconBadge icon={Video} />
-                <h2 className="text-xl font-medium">Add a video</h2>
+                <h2 className="text-xl font-medium">Добавить видео</h2>
             </div>
             <ChapterVideoForm
                 initialData={chapter}

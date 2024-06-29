@@ -39,7 +39,7 @@ export const ChapterVideoForm = ({
           `/api/courses/${courseId}/chapters/${chapterId}`,
           values
       );
-      toast.success("Chapter updated");
+      toast.success("Глава обновлена");
       toggleEdit();
       router.refresh();
     } catch {
@@ -50,15 +50,15 @@ export const ChapterVideoForm = ({
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4  dark:bg-gray-800 dark:text-slate-300">
       <div className="font-medium flex items-center justify-between">
-        Chapter video
+        Видео главы
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing && (
-            <>Cancel</>
+            <>Отмена</>
           )}
           {!isEditing && !initialData.videoUrl && (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-              Add a video
+              Добавить видео
             </>
           )}
           {!isEditing && initialData.videoUrl && (
@@ -93,7 +93,7 @@ export const ChapterVideoForm = ({
             }}
           />
           <div className="text-xs text-muted-foreground mt-4">
-           Upload this chapter&apos;s video
+            Загрузите видео этой главы
           </div>
         </div>
       )}

@@ -50,7 +50,7 @@ export const ImageForm = ({
         Profile image
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing && (
-            <>Cancel</>
+            <>Отмена</>
           )}
           {!isEditing && !initialData.imageUrl && (
             <>
@@ -61,7 +61,7 @@ export const ImageForm = ({
           {!isEditing && initialData.imageUrl && (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit image
+              Редактировать изображение
             </>
           )}
         </Button>

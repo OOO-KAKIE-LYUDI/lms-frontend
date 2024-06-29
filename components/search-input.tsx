@@ -36,7 +36,7 @@ export const SearchInput = () => {
                 onChange = {(e) => setValue(e.target.value)}
                 value={value}
                 className="w-full md:w-[300px] pl-9 rounded-full bg-slate-100 dark:bg-slate-800 focus-visible:ring-slate-200"
-                placeholder="Search for courses"
+                placeholder="Поиск курсов"
             />
         </div>
     )

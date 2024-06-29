@@ -76,7 +76,7 @@ export const MemberRoleForm = ({
         Profile Role
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
-            <>Cancel</>
+            <>Отмена</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />

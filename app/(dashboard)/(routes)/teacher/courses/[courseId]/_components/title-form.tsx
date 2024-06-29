@@ -57,20 +57,8 @@ export const TitleForm = ({
 
         }
       });*/
-
-      fetch(`http://localhost:8088/api/courses/${courseId}`, {
-        method: 'PATCH',
-        body: JSON.stringify(values),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJzLmJvc292MjAxMkB5YW5kZXgucnUiLCJleHAiOjE3MjMxOTU5MDQsInVzZXJJZCI6MSwiaWF0IjoxNzE5NTk1OTA0LCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiQURNSU5JU1RSQVRPUiJ9XX0.EQSYvmGnIfQvpoaJtwaJxFSECDDzM5ZJyCQSZHAI2I4EYRiSG5gL6YHW5dtk_s7TpBNdwfE2s_AToklOy32lTiSaB5wzTzo5UdplV2Ae4vzd74i28cPYKjfwmK3wP9DF_TN91mPv-NPnYp1eiFA10J42n7iEchbZh1nLNMtRLLMahCIp3CzIPAUO7_0QQ6z7VJy3WK9qypByKMp30BGyextQkH4j5lRxfzemvEQjhmq8yLhKZSbaQ7BQn8bjLCY1lvgEiJ88Wtl5FsVQCPxvxTkeGdVP0VLb7oVqQSBsMw5T8Np7iZi5IuoWt7XF4dmloFKpikNWzYC32D6xu84ynA`
-        },
-      })
-          .then(response => response.json())
-          .then(data => console.log(data));
-
-      /*await api.patch(`/courses/${courseId}`, values)*/
-      toast.success("Course title updated");
+      await axios.patch(`/api/courses/${courseId}`, values);
+      toast.success("Обновлено название курса");
       toggleEdit();
       router.refresh();
     } catch (error : any) {
@@ -91,14 +79,14 @@ export const TitleForm = ({
   return (
     <div className="mt-6 bg-slate-100 rounded-md p-4 dark:bg-gray-800">
       <div className="font-medium flex items-center justify-between">
-        Course Title
+        Название курса
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
-            <>Cancel</>
+            <>Отмена</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit title
+              Редактировать название
             </>
           )}
         </Button>
@@ -122,7 +110,7 @@ export const TitleForm = ({
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="e.g. 'Advanced web development'"
+                      placeholder="Например, 'Продвинутая веб-разработка'"
                       {...field}
                     />
                   </FormControl>

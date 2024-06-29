@@ -58,7 +58,7 @@ export const ChapterAccessForm = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, values);
-      toast.success("Chapter updated");
+      toast.success("Глава обновлена");
       toggleEdit();
       router.refresh();
     } catch {
@@ -69,14 +69,14 @@ export const ChapterAccessForm = ({
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4 dark:bg-gray-800">
       <div className="font-medium flex items-center justify-between">
-        Chapter Access
+        Доступ к главе
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
-            <>Cancel</>
+            <>Отмена</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit chapter access
+              Редактирование доступа к главе
             </>
           )}
         </Button>
@@ -88,9 +88,9 @@ export const ChapterAccessForm = ({
         )}>
      
           {initialData.isFree ? (
-            <>This chapter is available for free preview</>
+            <>Эта глава доступна для бесплатного предварительного просмотра</>
           ) : (
-            <>This chapter is not free.</>
+            <>Эта глава не бесплатная.</>
           )}
         </p>
       )}
@@ -113,7 +113,7 @@ export const ChapterAccessForm = ({
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormDescription>
-                        Check this box if you want to make this chapter free for preview.
+                        Установите этот флажок, если хотите сделать эту главу бесплатной для предварительного просмотра.
                     </FormDescription>
                   </div>
                 </FormItem>

@@ -53,7 +53,7 @@ export default function PriceForm({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success("Course updated");
+      toast.success("Курс обновлен");
       toggleEdit();
       router.refresh();
     } catch {
@@ -64,14 +64,14 @@ export default function PriceForm({
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4 dark:bg-gray-800">
       <div className="font-medium flex items-center justify-between">
-        Course price
+        Стоимость курса
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
-            <>Cancel</>
+            <>Отмена</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit price
+              Редактировать стоимость
             </>
           )}
         </Button>
@@ -83,7 +83,7 @@ export default function PriceForm({
         )}>
           {initialData.price 
             ? formatPrice(initialData.price)
-            : "No price set"         
+            : "Цена не установлена"
           }
         </p>
       )}

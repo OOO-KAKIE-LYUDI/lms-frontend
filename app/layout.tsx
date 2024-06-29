@@ -10,8 +10,7 @@ import { ConfettiProvider } from '@/components/providers/confetti-provider'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'KenDev NextJS LMS',
-  description: 'Coded by Ken along with Antonio',
+  title: 'PinkHat LMS',
 }
 
 export default function RootLayout({
@@ -27,7 +26,7 @@ export default function RootLayout({
               <ConfettiProvider />
               <ToastProvider />
               {children}
-              <ThemeSwitch />
+              {/*<ThemeSwitch />*/}
             </ThemeContextProvider>
           </body>
         </html>

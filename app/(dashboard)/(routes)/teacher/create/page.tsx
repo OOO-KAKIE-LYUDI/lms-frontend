@@ -64,13 +64,10 @@ const CreatePage = () => {
         <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6">
             <div>
                 <h1  className="text-2xl">
-                Name your new course
+                Назовите свой новый курс
                 </h1>
 
-                <p className="text-sm text-slate-600">
-                    What would you like to name your course? Don&apos;t worry, you 
-                    can change this later.
-                </p>
+
                 <Form { ...form } >
                     <form 
                         onSubmit={ form.handleSubmit(onSubmit) }
@@ -82,17 +79,17 @@ const CreatePage = () => {
                             render={({field }) => (
                                 <FormItem>
                                     <FormLabel>
-                                        Course Title
+                                        Название курса
                                     </FormLabel>
                                     <FormControl>
                                         <Input
                                             disabled={isSubmitting}
-                                            placeholder="e.g. 'Advanced web development'"
+                                            placeholder="Например, 'Продвинутая веб-разработка'"
                                             { ...field } // spread the field props
                                         />
                                     </FormControl>
                                     <FormDescription>
-                                        What will you teach in this course? 
+                                        {/*What will you teach in this course? */}
                                     </FormDescription>
                                     <FormMessage />
 
@@ -106,7 +103,7 @@ const CreatePage = () => {
                                     variant="ghost"
                                     type="button"
                                 >
-                                    Cancel
+                                    Отмена
                                 </Button>
                             </Link>
                             <Button
@@ -114,7 +111,7 @@ const CreatePage = () => {
                                 disabled={!isValid || isSubmitting}
                                 variant = "ghost"
                             >
-                                Continue
+                                Продолжить
                             </Button>
                         </div>
 

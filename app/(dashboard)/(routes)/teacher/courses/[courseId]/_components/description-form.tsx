@@ -56,7 +56,7 @@ export const DescriptionForm = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success("Course updated");
+      toast.success("Курс обновлен");
       toggleEdit();
       router.refresh();
     } catch {
@@ -67,14 +67,14 @@ export const DescriptionForm = ({
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4 dark:bg-gray-800">
       <div className="font-medium flex items-center justify-between">
-        Course description
+        Описание курса
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
-            <>Cancel</>
+            <>Отмена</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit description
+              Редактировать описание
             </>
           )}
         </Button>
@@ -84,7 +84,7 @@ export const DescriptionForm = ({
           "text-sm mt-2",
           !initialData.description && "text-slate-500 italic"
         )}>
-          {!initialData.description && "No description"}
+          {!initialData.description && "Нет описания"}
           {initialData.description && (
             <Preview
               value={initialData.description}

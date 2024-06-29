@@ -12,8 +12,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import {Course} from "@prisma/client";
+import {ColumnDef} from "@tanstack/react-table";
 
-export const columns = [
+export const columns: ColumnDef<Course>[] = [
   {
     accessorKey: "title",
     // TODO: Переписать это говно
@@ -24,7 +26,7 @@ export const columns = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Title
+          Название
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
@@ -40,7 +42,7 @@ export const columns = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Price
+          Стоимость
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
@@ -51,7 +53,7 @@ export const columns = [
       const price = parseFloat(row.getValue("price") || "0");
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
-        currency: "USD"
+        currency: "RUB"
       }).format(price);
 
       return <div>{formatted}</div>
@@ -67,7 +69,7 @@ export const columns = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Published
+          Статус
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
@@ -82,7 +84,7 @@ export const columns = [
           "bg-slate-500",
           isPublished && "bg-sky-700"
         )}>
-          {isPublished ? "Published" : "Draft"}
+          {isPublished ? "Опубликовано" : "Черновик"}
         </Badge>
       )
     }
@@ -92,7 +94,7 @@ export const columns = [
     // TODO: Переписать это говно
     // @ts-ignore
     cell: ({ row }) => {
-      const { courseId } = row.original;
+      const { id } = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -102,7 +104,7 @@ export const columns = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <Link href={`/teacher/courses/${courseId}`}>
+            <Link href={`/teacher/courses/${id}`}>
               <DropdownMenuItem>
                 <Pencil className="h-4 w-4 mr-2" />
                 Edit

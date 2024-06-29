@@ -34,7 +34,7 @@ export const Actions = ({
                 toast.success("Course unpublished");
             } else {
         	await axios.patch(`/api/courses/${courseId}/publish`);
-                toast.success("Course published");
+                toast.success("Курс опубликован");
                 confetti.onOpen();
             }
             router.refresh();
@@ -68,7 +68,7 @@ export const Actions = ({
                 variant="outline"
                 size="sm"
             >
-                {isPublished ? "Unpublish" : "Publish"}
+                {isPublished ? "Отменить публикацию" : "Опубликовать"}
             </Button>
             <ConfirmModal onConfirm={onDelete}>
             	<Button size="sm" disabled={isLoading}>

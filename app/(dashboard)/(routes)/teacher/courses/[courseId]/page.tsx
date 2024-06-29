@@ -27,13 +27,32 @@ const CourseIdPage = async ({
     return redirect("/");
   }
 
-  const response = await axios.get(`http://localhost:8088/api/courses/${params.courseId}`, {
+  const course = await db.course.findUnique({
+    where: {
+      id: params.courseId,
+      userId
+    },
+    include: {
+      chapters: {
+        orderBy: {
+          position: "asc",
+        },
+      },
+      attachments: {
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
+    },
+  });
+
+/*  const response = await axios.get(`http://localhost:8088/api/courses/${params.courseId}`, {
     headers: {
       'Authorization': `Bearer ${process.env.GEYSUKA}`
     }
   });
 
-  const course = response.data;
+  const course = response.data;*/
 
   const categories = await db.category.findMany({
     orderBy: {
@@ -65,17 +84,17 @@ const CourseIdPage = async ({
     <>
       {!course.isPublished && (
         <Banner
-          label="This course is unpublished. It will not be visible to the students."
+          label="Этот курс не опубликован. Он не будет виден студентам."
         />
       )}
       <div className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-y-2">
             <h1 className="text-2xl font-medium">
-              Course setup
+              Настройка курса
             </h1>
             <span className="text-sm text-slate-700">
-              Complete all fields {completionText}
+              Заполните все поля {completionText}
             </span>
           </div>
           <Actions
@@ -89,12 +108,12 @@ const CourseIdPage = async ({
             <div className="flex items-center gap-x-2">
               <IconBadge icon={LayoutDashboard} />
               <h2 className="text-xl">
-                Customize your course
+                Настройте свой курс
               </h2>
             </div>
             <TitleForm
               initialData={course}
-              courseId={course.courseId}
+              courseId={course.id}
             />
             <DescriptionForm
               initialData={course}
@@ -118,7 +137,7 @@ const CourseIdPage = async ({
               <div className="flex items-center gap-x-2">
                 <IconBadge icon={ListChecks} />
                 <h2 className="text-xl">
-                  Course chapters
+                  Главы курса
                 </h2>
               </div>
               <ChaptersForm
@@ -130,7 +149,7 @@ const CourseIdPage = async ({
               <div className="flex items-center gap-x-2">
                 <IconBadge icon={CircleDollarSign} />
                 <h2 className="text-xl">
-                  Sell your course
+                  Продайте свой курс
                 </h2>
               </div>
               <PriceForm
@@ -142,7 +161,7 @@ const CourseIdPage = async ({
               <div className="flex items-center gap-x-2">
                 <IconBadge icon={File} />
                 <h2 className="text-xl">
-                  Resources & Attachments
+                  Ресурсы и приложения
                 </h2>
               </div>
               <AttachmentForm

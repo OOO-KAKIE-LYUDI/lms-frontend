@@ -2,6 +2,7 @@ import {getProgress} from "@/actions/get-progress";
 
 import {CourseWithProgressWithCategory} from "@/types";
 import axios from "axios";
+import {db} from "@/lib/db";
 
 type GetCourses = {
   userId: string;
@@ -15,7 +16,7 @@ export const getCourses = async ({
   categoryId
 }: GetCourses): Promise<CourseWithProgressWithCategory[]> => {
   try {
-/*    const courses = await db.course.findMany({
+    const courses = await db.course.findMany({
       where: {
         isPublished: true,
         title: {
@@ -43,9 +44,9 @@ export const getCourses = async ({
       orderBy: {
         createdAt: "desc",
       }
-    });*/
+    });
 
-    const response = await axios.get('http://localhost:8088/api/courses', {
+/*    const response = await axios.get('http://localhost:8088/api/courses', {
       params: {
         isPublished: true,
         title,
@@ -57,10 +58,10 @@ export const getCourses = async ({
       }
     });
 
-    const courses = response.data;
+    const courses = response.data;*/
 
     return await Promise.all(
-        courses.map(async (course: { purchases: string | any[]; id: string; }) => {
+        courses.map(async (course) => {
           if (course.purchases.length === 0) {
             return {
               ...course,

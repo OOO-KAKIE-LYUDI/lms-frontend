@@ -35,7 +35,7 @@ export const AttachmentForm = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.post(`/api/courses/${courseId}/attachments`, values);
-      toast.success("Course updated");
+      toast.success("Курс обновлен");
       toggleEdit();
       router.refresh();
     } catch {
@@ -59,15 +59,15 @@ export const AttachmentForm = ({
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4 dark:bg-gray-800 dark:text-slate-300">
       <div className="font-medium flex items-center justify-between">
-        Course attachments
+        Приложения к курсу
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing && (
-            <>Cancel</>
+            <>Отмена</>
           )}
           {!isEditing && (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-              Add a file
+              Добавить файл
             </>
           )}
         </Button>
@@ -76,7 +76,7 @@ export const AttachmentForm = ({
         <>
           {initialData.attachments && initialData.attachments.length === 0 && (
             <p className="text-sm mt-2 text-slate-500 italic">
-              No attachments yet
+              Пока нет вложений
             </p>
           )}
           {initialData.attachments && initialData.attachments.length > 0 && (

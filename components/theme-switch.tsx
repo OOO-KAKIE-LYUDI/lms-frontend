@@ -39,7 +39,6 @@ export default function ThemeSwitch() {
         >
           <FaArrowUp />
         </button>
-
         <SignedIn>
           <UserButton
             afterSignOutUrl="/"
@@ -50,7 +49,6 @@ export default function ThemeSwitch() {
             }}
           />
         </SignedIn>
-
         <SignedOut>
         <button
           title="Sign in"
@@ -60,11 +58,7 @@ export default function ThemeSwitch() {
           <FaUser />
         </button>
       </SignedOut>
-
       </div>
-
-
-      
     </>
   );
 }

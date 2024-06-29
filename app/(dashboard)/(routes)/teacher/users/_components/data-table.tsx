@@ -35,7 +35,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     <div>
       <div className="flex items-center py-4 justify-between">
         <Input
-          placeholder="Filter users..."
+          placeholder="Поиск пользователей..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) => table.getColumn("name")?.setFilterValue(event.target.value)}
           className="max-w-sm"
@@ -84,7 +84,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          Previous
+          Предыдущий
         </Button>
         <Button
           variant="outline"
@@ -92,7 +92,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          Next
+          Следующий
         </Button>
       </div>
     </div>

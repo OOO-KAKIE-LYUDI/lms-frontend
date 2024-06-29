@@ -75,14 +75,14 @@ export const ChapterTitleForm = ({
   return (
     <div className="mt-6 bg-slate-100 rounded-md p-4 dark:bg-gray-800">
       <div className="font-medium flex items-center justify-between">
-        Course Title
+        Название курса
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
-            <>Cancel</>
+            <>Отмена</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit title
+              Редактировать название
             </>
           )}
         </Button>
@@ -106,7 +106,7 @@ export const ChapterTitleForm = ({
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="e.g. 'Advanced web development'"
+                      placeholder="Например, 'Продвинутая веб-разработка'"
                       {...field}
                     />
                   </FormControl>

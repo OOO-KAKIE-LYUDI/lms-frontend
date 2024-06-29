@@ -56,7 +56,7 @@ export const ChaptersForm = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.post(`/api/courses/${courseId}/chapters`, values);
-      toast.success("Chapter created");
+      toast.success("Глава создана");
       toggleCreating();
       router.refresh();
     } catch {
@@ -92,14 +92,14 @@ export const ChaptersForm = ({
         </div>
       )}
       <div className="font-medium flex items-center justify-between">
-        Course chapters
+        Главы курса
         <Button onClick={toggleCreating} variant="ghost">
           {isCreating ? (
-            <>Cancel</>
+            <>Отмена</>
           ) : (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-              Add a chapter
+              Добавить главу
             </>
           )}
         </Button>
@@ -118,7 +118,7 @@ export const ChaptersForm = ({
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="e.g. 'Introduction to the course'"
+                      placeholder="Например, 'Вступление'"
                       {...field}
                     />
                   </FormControl>
@@ -130,7 +130,7 @@ export const ChaptersForm = ({
               disabled={!isValid || isSubmitting}
               type="submit"
             >
-              Create
+              Создать
             </Button>
 
           </form>
@@ -141,7 +141,7 @@ export const ChaptersForm = ({
           "text-sm mt-2",
           !initialData.chapters.length && "text-slate-500 italic"
         )}>
-          {!initialData.chapters.length && "No chapters"}
+          {!initialData.chapters.length && "Нет глав"}
           <ChaptersList
             onEdit={onEdit}
             onReorder={onReorder}
@@ -151,7 +151,7 @@ export const ChaptersForm = ({
       )}
       {!isCreating && (
         <p className="text-xs text-muted-foreground mt-4">
-          Drag and drop to reorder the chapters
+          Перетаскивайте, чтобы изменить порядок глав
         </p>
       )}
     </div>

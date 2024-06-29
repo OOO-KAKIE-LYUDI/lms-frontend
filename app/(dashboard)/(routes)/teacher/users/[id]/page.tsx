@@ -57,7 +57,7 @@ const ProfileIdPage: React.FC<ProfileIdPageProps> = async ({ params }) => {
               </div>
             </div>
             <span className="text-sm text-slate-700 dark:text-slate-300 ">
-              Complete all fields {completionText}
+              Заполните все поля {completionText}
             </span>
           </div>
         </div>

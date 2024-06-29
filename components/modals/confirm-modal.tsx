@@ -37,7 +37,7 @@ import {
                 </AlertDialogDescription>
                 <AlertDialogFooter>
                     <AlertDialogCancel>
-                        Cancel
+                        Отмена
                     </AlertDialogCancel>
                     <AlertDialogAction onClick={onConfirm}>
                         Confirm

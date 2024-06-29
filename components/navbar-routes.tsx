@@ -34,18 +34,18 @@ export const NavbarRoutes : React.FC<NavbarRoutesProps> = ({
           <Link href="/">
             <Button size="sm" variant="ghost">
               <LogOut className="h-4 w-4 mr-2" />
-              Exit
+              Выход
             </Button>
           </Link>
         ) : isTeacher ? (
           <Link href="/teacher/courses">
-            <Button size="sm" variant="ghost">
-              Teacher Mode
+            <Button size="sm" variant="default">
+              Редактирвоание курсов
             </Button>
           </Link>
         ) : null}
 
-       <UserButton afterSignOutUrl="/" />
+       {/*<UserButton afterSignOutUrl="/" />*/}
       </div>
     </>
   );

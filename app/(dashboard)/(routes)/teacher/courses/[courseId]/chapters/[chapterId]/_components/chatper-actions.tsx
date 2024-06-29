@@ -35,7 +35,7 @@ export const ChapterActions = ({
                 toast.success("Chapter unpublished");
             } else {
                 await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/publish`);
-                toast.success("Chapter published");
+                toast.success("Глава опубликована");
             }
             router.refresh();
             return;
@@ -70,7 +70,7 @@ export const ChapterActions = ({
                 variant="outline"
                 size="sm"
             >
-                {isPublished ? "Unpublish" : "Publish"}
+                {isPublished ? "Отменить публикацию" : "Опубликовать"}
             </Button>
             <ConfirmModal onConfirm={onDelete}>
                 <Button disabled={isLoading}>
