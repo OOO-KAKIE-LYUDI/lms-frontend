@@ -54,7 +54,7 @@ export const ChapterTitleForm = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, values);
-      toast.success("Chapter title updated");
+      toast.success("Название главы обновлено");
       toggleEdit();
       router.refresh();
     } catch (error : any) {

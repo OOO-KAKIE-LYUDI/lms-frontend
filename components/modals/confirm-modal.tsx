@@ -11,12 +11,15 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog";
+import React from "react";
 
   interface ConfirmModalProps {
     children: React.ReactNode;
     onConfirm: () => void;
-  };
+  }
 
+
+  // TODO: props
   export const ConfirmModal = ({
     children,
     onConfirm,
@@ -29,18 +32,18 @@ import {
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>
-                        Are you sure?
+                        Вы уверены?
                     </AlertDialogTitle>
                 </AlertDialogHeader>
                 <AlertDialogDescription>
-                    This action cannot be undone.
+                   Это действие нельзя обратить.
                 </AlertDialogDescription>
                 <AlertDialogFooter>
                     <AlertDialogCancel>
                         Отмена
                     </AlertDialogCancel>
                     <AlertDialogAction onClick={onConfirm}>
-                        Confirm
+                        Подвердить
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

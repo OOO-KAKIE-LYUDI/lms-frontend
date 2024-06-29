@@ -14,8 +14,9 @@ interface CourseCardProps {
   price: number;
   progress: number | null;
   category: string;
-};
+}
 
+// TODO: баг с дублирующимися курсами с прогрессом
 export const CourseCard = ({
   id,
   title,

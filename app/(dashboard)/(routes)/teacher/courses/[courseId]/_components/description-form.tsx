@@ -26,7 +26,7 @@ import { Preview } from "@/components/preview";
 interface DescriptionFormProps {
   initialData: Course;
   courseId: string;
-};
+}
 
 const formSchema = z.object({
   description: z.string().min(1, {
@@ -60,7 +60,7 @@ export const DescriptionForm = ({
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Something went wrong");
+      toast.error("Ошибка изменения описания курса");
     }
   }
 

@@ -14,7 +14,7 @@ interface CategoryItemProps {
   label: string;
   value?: string;
   icon?: IconType;
-};
+}
 
 export const CategoryItem = ({
   label,
@@ -25,7 +25,8 @@ export const CategoryItem = ({
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const currentCategoryId = searchParams.get("categoryId"); const currentTitle = searchParams.get("title");
+  const currentCategoryId = searchParams.get("categoryId");
+  const currentTitle = searchParams.get("title");
 
   const isSelected = currentCategoryId === value;
 

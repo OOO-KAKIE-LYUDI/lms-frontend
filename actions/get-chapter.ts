@@ -1,4 +1,3 @@
-import { AttachmentForm } from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/attachment-form";
 import { db } from "@/lib/db";
 import { Attachment, Chapter } from "@prisma/client";
 
@@ -7,7 +6,7 @@ interface getChapterProps {
     userId: string;
     courseId: string;
     chapterId: string;
-};
+}
 
 export const getChapter = async ({ 
     userId, 
@@ -43,7 +42,7 @@ export const getChapter = async ({
         });
 
         if (!chapter || !course) {
-            throw new Error("Chapter or course not found");
+            throw new Error("Глава или курс не найдены");
         } 
 
         let muxData = null;

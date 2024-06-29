@@ -1,4 +1,5 @@
 "use client";
+
 import * as z from "zod";
 import axios from "axios";
 import { Pencil, PlusCircle, ImageIcon, File, Loader2, X } from "lucide-react";
@@ -6,7 +7,6 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Attachment, Course } from "@prisma/client";
-
 import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
 import { cn } from "@/lib/utils";
@@ -39,7 +39,7 @@ export const AttachmentForm = ({
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Something went wrong");
+      toast.error("Ошибка обновления приложения курса");
     }
   };
 
@@ -47,10 +47,10 @@ export const AttachmentForm = ({
     try {
       setDeletingId(id);
       await axios.delete(`/api/courses/${courseId}/attachments/${id}`);
-      toast.success("Attachment deleted");
+      toast.success("Приложение удалено");
       router.refresh();
     } catch {
-      toast.error("Something went wrong");
+      toast.error("Ошибка удаления приложения курса");
     } finally {
       setDeletingId(null);
     }

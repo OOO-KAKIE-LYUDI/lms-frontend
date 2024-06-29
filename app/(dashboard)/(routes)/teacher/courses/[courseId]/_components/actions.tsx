@@ -28,10 +28,9 @@ export const Actions = ({
     const onClick = async () => {  
         try {
             setIsLoading(true);
-
             if (isPublished) {
                 await axios.patch(`/api/courses/${courseId}/unpublish`);
-                toast.success("Course unpublished");
+                toast.success("Курс снят с публикации");
             } else {
         	await axios.patch(`/api/courses/${courseId}/publish`);
                 toast.success("Курс опубликован");
@@ -39,7 +38,7 @@ export const Actions = ({
             }
             router.refresh();
         } catch {
-            toast.error("Something went wrong");
+            toast.error("Ошибка изменения статуса курса");
         } finally {
             setIsLoading(false);
         }
@@ -52,9 +51,8 @@ export const Actions = ({
             toast.success("Course deleted");
             router.refresh();
       	    router.push(`/teacher/courses`);
-
         } catch {
-            toast.error("Something went wrong");
+            toast.error("Ошибка получения данных курса");
         } finally {
             setIsLoading(false);
         }

@@ -1,12 +1,10 @@
 import api from "@/app/api/index";
 import { cookies } from "next/headers";
 
-
 export type LoginForm = {
     email: string,
     password: string,
 }
-
 
 export const login = async ({email, password}: LoginForm) => {
     try {

@@ -11,7 +11,6 @@ import {
   FcSportsMode
 } from "react-icons/fc";
 import { IconType } from "react-icons";
-
 import { CategoryItem } from "./category-item";
 
 interface CategoriesProps {

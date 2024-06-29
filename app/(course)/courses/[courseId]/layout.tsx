@@ -1,12 +1,12 @@
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-
 import { db } from "@/lib/db";
-
 import { getProgress } from "@/actions/get-progress";
-
 import { CourseSidebar } from "./_components/course-sidebar";
 import { CourseNavbar } from "./_components/course-navbar";
+
+import React from "react";
+
 import getSafeProfile from "@/actions/get-safe-profile";
 
 const CourseLayout = async ({

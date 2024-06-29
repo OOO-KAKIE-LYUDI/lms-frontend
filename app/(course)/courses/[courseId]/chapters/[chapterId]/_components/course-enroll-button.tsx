@@ -3,7 +3,6 @@
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
-
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/format";
 
@@ -21,12 +20,11 @@ export const CourseEnrollButton = ({
   const onClick = async () => {
     try {
       setIsLoading(true);
-
       const response = await axios.post(`/api/courses/${courseId}/checkout`)
-
+      // TODO: Переписать, кринж
       window.location.assign(response.data.url);
     } catch {
-      toast.error("Something went wrong");
+      toast.error("Ошибка создания окна оплаты");
     } finally {
       setIsLoading(false);
     }

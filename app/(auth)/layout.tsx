@@ -1,3 +1,6 @@
+import React from "react";
+
+// DEPRECATED: Clerk layout, нужно заменить на самописный layout
 const AuthLayout = ({
     children
 }: {children:React.ReactNode}) => {

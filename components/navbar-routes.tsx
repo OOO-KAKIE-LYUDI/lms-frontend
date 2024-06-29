@@ -1,12 +1,12 @@
 "use client";
 
-import { UserButton } from "@clerk/nextjs";
 import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { SearchInput } from "./search-input";
 import { SafeProfile } from "@/types";
+import React from "react";
 
 interface NavbarRoutesProps  {
   currentProfile?: SafeProfile | null
@@ -28,7 +28,6 @@ export const NavbarRoutes : React.FC<NavbarRoutesProps> = ({
           <SearchInput />
         </div>
       )}
-
       <div className="flex gap-x-2 ml-auto">
         {isTeacherPage || isPlayerPage ? (
           <Link href="/">
@@ -44,8 +43,6 @@ export const NavbarRoutes : React.FC<NavbarRoutesProps> = ({
             </Button>
           </Link>
         ) : null}
-
-       {/*<UserButton afterSignOutUrl="/" />*/}
       </div>
     </>
   );

@@ -5,7 +5,6 @@ import { CheckCircle, XCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-
 import { Button } from "@/components/ui/button";
 import { useConfettiStore } from "@/hooks/use-confetti-store";
 
@@ -39,13 +38,14 @@ export const CourseProgressButton = ({
       }
 
       if (!isCompleted && nextChapterId) {
+        //TODO: Переписать, кринж
         router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
       }
 
       toast.success("Прогресс обновлен");
       router.refresh();
     } catch {
-      toast.error("Something went wrong");
+      toast.error("Ошибка получения прогресса главы");
     } finally {
       setIsLoading(false);
     }

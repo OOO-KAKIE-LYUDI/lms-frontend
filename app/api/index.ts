@@ -5,6 +5,8 @@ const api: AxiosInstance = axios.create({
     baseURL: 'http://localhost:8088/api',
 })
 
+// TODO: Дописать перехватчика + fix CORS
+
 /*
 api.interceptors.request.use(
     (config) => {

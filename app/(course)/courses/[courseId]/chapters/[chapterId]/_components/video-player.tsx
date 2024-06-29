@@ -6,7 +6,6 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Loader2, Lock } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 import { useConfettiStore } from "@/hooks/use-confetti-store";
 
@@ -52,7 +51,7 @@ export const VideoPlayer = ({
                 }
             }
         } catch {
-            toast.error("Something went wrong");
+            toast.error("Ошибка изменения прогресса главы");
         }
     }
 

@@ -1,10 +1,8 @@
 import { LucideIcon } from 'lucide-react';
 import { cva, type VariantProps } from "class-variance-authority";
-
 import { cn } from "@/lib/utils";
 
 
-// Trying to replicate Shadcn's Component Styling System
 const backgroundVariants = cva(
   "rounded-full flex items-center justify-center",
   {
@@ -53,14 +51,13 @@ interface IconBadgeProps extends BackgroundVariantsProps, IconVariantsProps {
 }
 
 export const IconBadge = ({
-    icon: Icon, // immediate map to Icon
+    icon: Icon,
     variant,
     size,
 }: IconBadgeProps) => {
     return (
         <div className={cn(backgroundVariants({ variant, size }))}>
 	      <Icon className={cn(iconVariants({ variant, size }))} />
-
         </div>
     )
 }

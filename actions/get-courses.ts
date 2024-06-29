@@ -1,8 +1,7 @@
-import {getProgress} from "@/actions/get-progress";
-
-import {CourseWithProgressWithCategory} from "@/types";
+import { getProgress } from "@/actions/get-progress";
+import { CourseWithProgressWithCategory } from "@/types";
 import axios from "axios";
-import {db} from "@/lib/db";
+import { db } from "@/lib/db";
 
 type GetCourses = {
   userId: string;
@@ -20,8 +19,8 @@ export const getCourses = async ({
       where: {
         isPublished: true,
         title: {
-                    contains: title,
-                    mode: "insensitive",
+          contains: title,
+          mode: "insensitive",
         },
         categoryId,
       },

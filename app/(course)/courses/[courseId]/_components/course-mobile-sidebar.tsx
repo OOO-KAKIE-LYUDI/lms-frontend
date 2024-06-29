@@ -16,14 +16,12 @@ interface CourseMobileSidebarProps {
     })[];
   };
   progressCount: number;
-};
+}
 
 export const CourseMobileSidebar = ({ 
   course,
   progressCount,
 }: CourseMobileSidebarProps) => {
-
-  
   return (
     <Sheet>
       <SheetTrigger className="md:hidden pr-4 hover:opacity-75 transition">

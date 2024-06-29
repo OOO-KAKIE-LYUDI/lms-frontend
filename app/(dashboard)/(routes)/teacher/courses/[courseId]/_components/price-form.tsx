@@ -25,7 +25,7 @@ import { formatPrice } from "@/lib/format";
 interface PriceFormProps {
   initialData: Course;
   courseId: string;
-};
+}
 
 const formSchema = z.object({
   price: z.coerce.number(),
@@ -57,7 +57,7 @@ export default function PriceForm({
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Something went wrong");
+      toast.error("Ошибка изменения стоимости курса");
     }
   }
 

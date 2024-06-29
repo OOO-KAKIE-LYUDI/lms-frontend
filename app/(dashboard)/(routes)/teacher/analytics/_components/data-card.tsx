@@ -7,7 +7,6 @@ interface DataCardProps {
     shouldFormat?: boolean;
 }
 
-
 export const DataCard = ({
     value,
     label,

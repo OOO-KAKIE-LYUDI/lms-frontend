@@ -1,5 +1,4 @@
 import { currentUser, redirectToSignIn } from "@clerk/nextjs";
-import { auth } from "@clerk/nextjs";
 import { db } from "@/lib/db";
 
 export const currentProfile = async () => {
@@ -9,6 +8,7 @@ export const currentProfile = async () => {
         return redirectToSignIn();
     }   
 
+    // TODO: backend connect
     let profile = await db.profile.findUnique({
         where: {
             userId: user.id,
@@ -21,7 +21,6 @@ export const currentProfile = async () => {
     } else {
         let firstName = user.firstName || "";
         let lastName = user.lastName || "";    
-        // If the first and last name fields are null, trim the email address before the @ character and set it to the first name field.
         if (!firstName && !lastName) {
             const emailParts = user.emailAddresses[0].emailAddress.split("@");
             firstName = emailParts[0].trim();

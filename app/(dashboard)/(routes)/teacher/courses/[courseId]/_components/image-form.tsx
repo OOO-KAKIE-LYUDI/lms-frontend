@@ -15,7 +15,7 @@ import { FileUpload } from "@/components/file-upload";
 interface ImageFormProps {
   initialData: Course
   courseId: string;
-};
+}
 
 const formSchema = z.object({
   imageUrl: z.string().min(1, {
@@ -40,7 +40,7 @@ export const ImageForm = ({
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Something went wrong");
+      toast.error("Ошибка изменения изображения курса");
     }
   }
 

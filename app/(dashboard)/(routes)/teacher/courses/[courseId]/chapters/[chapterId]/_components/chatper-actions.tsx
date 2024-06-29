@@ -21,42 +21,38 @@ export const ChapterActions = ({
     chapterId,
     isPublished,
 }: ChapterActionsProps) => {
-
     const router = useRouter();
     const [ isLoading, setIsLoading ] = useState(false);
 
     const onClick = async () => {
-            
         try {
             setIsLoading(true);
-
             if (isPublished) {
                 await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/unpublish`);
-                toast.success("Chapter unpublished");
+                toast.success("Глава снята с публикации");
             } else {
                 await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/publish`);
                 toast.success("Глава опубликована");
             }
             router.refresh();
             return;
-
         } catch {
-            toast.error("Something went wrong");
+            toast.error("Ошибка изменения статуса публикации главы");
         } finally {
             setIsLoading(false);
         }
-
     }
+
     const onDelete = async () => {
         try {
             setIsLoading(true);
             await axios.delete(`/api/courses/${courseId}/chapters/${chapterId}`);
             toast.success("Chapter deleted");
             router.refresh();
+            //TODO: Переписать, кринж
             router.push(`/teacher/courses/${courseId}/chapters/${chapterId}`)
-
         } catch {
-            toast.error("Something went wrong");
+            toast.error("Ошибка удаления главы");
         } finally {
             setIsLoading(false);
         }

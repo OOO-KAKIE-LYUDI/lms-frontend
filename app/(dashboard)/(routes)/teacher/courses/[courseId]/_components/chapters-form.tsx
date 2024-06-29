@@ -25,7 +25,7 @@ import { ChaptersList } from "./chapters-list";
 interface ChaptersFormProps {
   initialData: Course & { chapters: Chapter[] };
   courseId: string;
-};
+}
 
 const formSchema = z.object({
   title: z.string().min(1),
@@ -60,27 +60,27 @@ export const ChaptersForm = ({
       toggleCreating();
       router.refresh();
     } catch {
-      toast.error("Something went wrong");
+      toast.error("Ошибка добавления новый главы");
     }
   }
 
   const onReorder = async (updateData: { id: string; position: number }[]) => {
     try {
       setIsUpdating(true);
-
       await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
         list: updateData
       });
-      toast.success("Chapters reordered");
+      toast.success("Порядок глав изменен");
       router.refresh();
     } catch {
-      toast.error("Something went wrong");
+      toast.error("Ошибка изменения поряд глав");
     } finally {
       setIsUpdating(false);
     }
   }
 
   const onEdit = (id: string) => {
+    // TODO: Переписать, кринж
     router.push(`/teacher/courses/${courseId}/chapters/${id}`);
   }
   return (

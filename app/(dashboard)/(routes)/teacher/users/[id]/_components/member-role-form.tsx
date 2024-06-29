@@ -59,11 +59,11 @@ export const MemberRoleForm = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/profile/${id}`, values);
-      toast.success("Profile updated");
+      toast.success("Профиль обновлен");
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Something went wrong");
+      toast.error("Ошибка изменения данных профиля");
     }
   }
 

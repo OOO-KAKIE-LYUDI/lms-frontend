@@ -62,11 +62,11 @@ export const CategoryForm = ({
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Something went wrong");
+      toast.error("Ошибка изменения данных тегов курса");
     }
   }
 
-  // Check if the course already has a selected option.
+  // Проверяем, есть ли в курсе уже выбранный вариант.
   const selectedOption = options.find(option => option.value === initialData.categoryId);
 
   return (

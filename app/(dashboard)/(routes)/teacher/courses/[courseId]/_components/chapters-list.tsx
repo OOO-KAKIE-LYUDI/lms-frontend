@@ -17,8 +17,9 @@ interface ChaptersListProps {
   items: Chapter[];
   onReorder: (updateData: { id: string; position: number }[]) => void;
   onEdit: (id: string) => void;
-};
+}
 
+//TODO: Проблема пропов
 export const ChaptersList = ({
   items,
   onReorder,
@@ -61,8 +62,6 @@ export const ChaptersList = ({
     return null;
   }
     return (
-
-
         <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="chapters">
                 {(provided) => (
@@ -125,8 +124,5 @@ export const ChaptersList = ({
                 )}
             </Droppable>
         </DragDropContext>
-
-
     )
-
 }
