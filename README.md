@@ -1,11 +1,5 @@
 # LMS-Frontend
 
-<p align="center">
-  <a href="https://gitpoint.co/">
-    <img alt="GitPoint" title="GitPoint" src="https://github.com/OOO-KAKIE-LYUDI/.github/blob/main/profile/ban.png" width="800">
-  </a>
-</p>
-
 LMS-Frontend - это фронтенд-часть системы управления обучением (LMS), разработанная для предоставления удобного и интуитивного интерфейса для студентов, преподавателей и администраторов.
 
 ## Основные особенности
