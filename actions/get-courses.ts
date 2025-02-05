@@ -45,20 +45,6 @@ export const getCourses = async ({
       }
     });
 
-/*    const response = await axios.get('http://localhost:8088/api/courses', {
-      params: {
-        isPublished: true,
-        title,
-        categoryId,
-        userId,
-      },
-      headers: {
-        'Authorization': `Bearer ${process.env.GEYSUKA}`
-      }
-    });
-
-    const courses = response.data;*/
-
     return await Promise.all(
         courses.map(async (course) => {
           if (course.purchases.length === 0) {
