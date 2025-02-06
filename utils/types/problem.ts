@@ -17,6 +17,12 @@ export type Problem = {
 	starterCode: string;
 	handlerFunction: ((fn: any) => boolean) | string;
 	starterFunctionName: string;
+	solved: boolean;
+	difficulty: {
+		level: number;
+		name: string;
+		color: string;
+	}
 };
 
 export type DBProblem = {

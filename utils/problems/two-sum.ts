@@ -38,6 +38,7 @@ const handlerTwoSum = (fn: any) => {
 export const twoSum: Problem = {
   id: "two-sum",
   title: "1. Two Sum",
+  solved: true,
   problemStatement: `<p class='mt-3'>
 Дан массив целых чисел <code>nums</code> и целое число <code>target</code>, верните
 <em>индексы двух чисел таких, что их сумма равна</em> <code>target</code>. </p> <p class='mt-3'> Можете считать, что для каждого входного набора существует <strong>ровно одно решение</strong>, и вы не можете использовать один и тот же элемент дважды. </p> <p class='mt-3'>Вы можете вернуть ответ в любом порядке.</p>`,
@@ -74,4 +75,9 @@ export const twoSum: Problem = {
   starterCode: starterCodeTwoSum,
   order: 1,
   starterFunctionName: "function twoSum(",
+  difficulty: {
+    level: 1,
+    name: "Легко",
+    color: "bg-green-500 text-green-600"
+  }
 };

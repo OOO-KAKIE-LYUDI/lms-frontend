@@ -28,6 +28,7 @@ const starterCodeJumpGameJS = `function canJump(nums) {
 export const jumpGame: Problem = {
 	id: "jump-game",
 	title: "3. Jump Game",
+	solved: false,
 	problemStatement: `<p class='mt-3'>
     You are given an integer array <code>nums</code>. You are initially positioned at the <strong>first index</strong>
     and each element in the array represents your maximum jump length at that position.
@@ -58,4 +59,9 @@ export const jumpGame: Problem = {
 	handlerFunction: jumpGameHandler,
 	starterFunctionName: "function canJump(",
 	order: 3,
+	difficulty: {
+		level: 3,
+		name: "Сложно",
+		color: "bg-red-500 text-red-500"
+	}
 };

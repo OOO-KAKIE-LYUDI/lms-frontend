@@ -42,6 +42,7 @@ function searchMatrix(matrix, target) {
 export const search2DMatrix: Problem = {
 	id: "search-a-2d-matrix",
 	title: "5. Search a 2D Matrix",
+	solved: false,
 	problemStatement: `
   <p class='mt-3'>Write an efficient algorithm that searches for a value in an <code>m x n</code> matrix. This matrix has the following properties:</p>
     <li class="mt-3">Integers in each row are sorted from left to right.</li>
@@ -85,4 +86,9 @@ export const search2DMatrix: Problem = {
 	handlerFunction: search2DMatrixHandler,
 	starterFunctionName: "function searchMatrix",
 	order: 5,
+	difficulty: {
+		level: 1,
+		name: "Легко",
+		color: "bg-green-500 text-green-600",
+	}
 };
