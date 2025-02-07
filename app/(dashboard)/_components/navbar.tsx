@@ -13,7 +13,7 @@ export const Navbar : React.FC<NavbarProps> = ({
   }) => {
 
     return (
-        <div className="p-4 border-b h-full flex items-center bg-white dark:bg-gray-900 text-gray-900 dark:text-white shadow-sm">
+        <div className="p-4 border-b h-full flex items-center bg-zinc-100 text-black shadow-sm">
              <MobileSidebar />
              <NavbarRoutes currentProfile={currentProfile}/>
         </div>

@@ -1,145 +1,164 @@
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { BsCheckCircle } from "react-icons/bs";
-import { AiFillYoutube } from "react-icons/ai";
-import { IoClose } from "react-icons/io5";
-import YouTube from "react-youtube";
-import { DBProblem } from "@/utils/types/problem";
-import { auth } from "@clerk/nextjs";
+"use client"
+
+import { useEffect, useState } from "react"
+import Link from "next/link"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { CheckCircle, Youtube } from "lucide-react"
+import type { DBProblem } from "@/utils/types/problem"
+import YouTube from "react-youtube"
+import type React from "react" // Import React
 
 type ProblemsTableProps = {
-	setLoadingProblems: React.Dispatch<React.SetStateAction<boolean>>;
-};
+  setLoadingProblems: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-const ProblemsTable: React.FC<ProblemsTableProps> = ({ setLoadingProblems }) => {
-	const [youtubePlayer, setYoutubePlayer] = useState({
-		isOpen: false,
-		videoId: "",
-	});
-	const problems = useGetProblems(setLoadingProblems);
-	const solvedProblems = useGetSolvedProblems();
-	console.log("solvedProblems", solvedProblems);
-	const closeModal = () => {
-		setYoutubePlayer({ isOpen: false, videoId: "" });
-	};
+export function ProblemsTable({ setLoadingProblems }: ProblemsTableProps) {
 
-	useEffect(() => {
-		const handleEsc = (e: KeyboardEvent) => {
-			if (e.key === "Escape") closeModal();
-		};
-		window.addEventListener("keydown", handleEsc);
+  const [problems, setProblems] = useState<DBProblem[]>([])
 
-		return () => window.removeEventListener("keydown", handleEsc);
-	}, []);
+  useEffect(() => {
+    const fetchProblems = async () => {
+      setLoadingProblems(true)
+      try {
+        const response = await fetch("http://localhost:8088/api/algo/problems")
+        const data = await response.json()
+        setProblems(data)
+        console.log(data)
 
-	return (
-		<>
-			<tbody className='text-white'>
-				{problems.map((problem, idx) => {
-					const difficulyColor =
-						problem.difficulty === "Easy"
-							? "text-dark-green-s"
-							: problem.difficulty === "Medium"
-							? "text-dark-yellow"
-							: "text-dark-pink";
-					return (
-						<tr className={`${idx % 2 == 1 ? "bg-dark-layer-1" : ""}`} key={problem.id}>
-							<th className='px-2 py-4 font-medium whitespace-nowrap text-dark-green-s'>
-								{solvedProblems.includes(problem.id) && <BsCheckCircle fontSize={"18"} width='18' />}
-							</th>
-							<td className='px-6 py-4'>
-								{problem.link ? (
-									<Link
-										href={problem.link}
-										className='hover:text-blue-600 cursor-pointer'
-										target='_blank'
-									>
-										{problem.title}
-									</Link>
-								) : (
-									<Link
-										className='hover:text-blue-600 cursor-pointer'
-										href={`/problems/${problem.id}`}
-									>
-										{problem.title}
-									</Link>
-								)}
-							</td>
-							<td className={`px-6 py-4 ${difficulyColor}`}>{problem.difficulty}</td>
-							<td className={"px-6 py-4"}>{problem.category}</td>
-							<td className={"px-6 py-4"}>
-								{problem.videoId ? (
-									<AiFillYoutube
-										fontSize={"28"}
-										className='cursor-pointer hover:text-red-600'
-										onClick={() =>
-											setYoutubePlayer({ isOpen: true, videoId: problem.videoId as string })
-										}
-									/>
-								) : (
-									<p className='text-gray-400'>Coming soon</p>
-								)}
-							</td>
-						</tr>
-					);
-				})}
-			</tbody>
-			{youtubePlayer.isOpen && (
-				<tfoot className='fixed top-0 left-0 h-screen w-screen flex items-center justify-center'>
-					<div
-						className='bg-black z-10 opacity-70 top-0 left-0 w-screen h-screen absolute'
-						onClick={closeModal}
-					></div>
-					<div className='w-full z-50 h-full px-6 relative max-w-4xl'>
-						<div className='w-full h-full flex items-center justify-center relative'>
-							<div className='w-full relative'>
-								<IoClose
-									fontSize={"35"}
-									className='cursor-pointer absolute -top-16 right-0'
-									onClick={closeModal}
-								/>
-								<YouTube
-									videoId={youtubePlayer.videoId}
-									loading='lazy'
-									iframeClassName='w-full min-h-[500px]'
-								/>
-							</div>
-						</div>
-					</div>
-				</tfoot>
-			)}
-		</>
-	);
-};
-export default ProblemsTable;
+      } catch (error) {
+        console.error("Failed to fetch problems:", error)
+      } finally {
+        setLoadingProblems(false)
+      }
+    }
 
-// TODO Fetch problems
+    fetchProblems()
+  }, [setLoadingProblems])
+
+
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case "Easy":
+        return "bg-green-100 text-green-800"
+      case "Medium":
+        return "bg-yellow-100 text-yellow-800"
+      case "Hard":
+        return "bg-red-100 text-red-800"
+      default:
+        return "bg-gray-100 text-gray-800"
+    }
+  }
+
+  return (
+    <>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[50px]">Solved</TableHead>
+            <TableHead>Title</TableHead>
+            <TableHead>Difficulty</TableHead>
+            <TableHead>Category</TableHead>
+            <TableHead className="w-[100px]">Solution</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {problems.map((problem) => (
+            <TableRow key={problem.id}>
+              <TableCell>
+                <CheckCircle className="h-5 w-5 text-green-500"/>
+              </TableCell>
+              <TableCell>
+                {problem.link ? (
+                  <Link href={problem.link} className="hover:underline" target="_blank">
+                    {problem.title}
+                  </Link>
+                ) : (
+                  <Link href={`/problems/${problem.id}`} className="hover:underline">
+                    {problem.title}
+                  </Link>
+                )}
+              </TableCell>
+              <TableCell>
+                <Badge variant="outline" className={getDifficultyColor(problem.difficulty)}>
+                  {problem.difficulty}
+                </Badge>
+              </TableCell>
+              <TableCell>{problem.category}</TableCell>
+              <TableCell>
+                {problem.videoId ? (
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" size="icon">
+                        <Youtube className="h-4 w-4 text-red-500"/>
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                      <DialogHeader>
+                        <DialogTitle>Video Solution</DialogTitle>
+                      </DialogHeader>
+                      <div className="aspect-video">
+                        <YouTube
+                          videoId={problem.videoId}
+                          opts={{
+                            width: "100%",
+                            height: "100%",
+                          }}
+                        />
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                ) : (
+                  <span className="text-gray-400">Coming soon</span>
+                )}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </>
+  )
+}
+
 function useGetProblems(setLoadingProblems: React.Dispatch<React.SetStateAction<boolean>>) {
-	const [problems, setProblems] = useState<DBProblem[]>([]);
+  const [problems, setProblems] = useState<DBProblem[]>([
+    {
+      id: "1",
+      title: "Two Sum",
+      difficulty: "Easy",
+      category: "Array",
+      link: "",
+      videoId: "dQw4w9WgXcQ",
+      likes: 100,
+      dislikes: 10,
+      order: 1,
+    },
+    {
+      id: "2",
+      title: "Add Two Numbers",
+      difficulty: "Medium",
+      category: "Linked List",
+      link: "",
+      videoId: "",
+      likes: 200,
+      dislikes: 20,
+      order: 2,
+    },
+    {
+      id: "3",
+      title: "Longest Substring Without Repeating Characters",
+      difficulty: "Hard",
+      category: "String",
+      link: "",
+      videoId: "dQw4w9WgXcQ",
+      likes: 300,
+      dislikes: 30,
+      order: 3,
+    },
+  ])
 
-	useEffect(() => {
-		const getProblems = async () => {
-
-		};
-
-		getProblems();
-	}, [setLoadingProblems]);
-	return problems;
+  return problems
 }
 
-// TODO Fetch solved problems
-function useGetSolvedProblems() {
-	const [solvedProblems, setSolvedProblems] = useState<string[]>([]);
-	const { userId } = auth();
-
-	useEffect(() => {
-		const getSolvedProblems = async () => {
-
-		};
-
-		if (userId) getSolvedProblems();
-		if (!userId) setSolvedProblems([]);
-	}, [userId]);
-
-	return solvedProblems;
-}

@@ -5,11 +5,12 @@ import SettingsModal from "@/app/(code-judge)/problems/[problemId]/_components/M
 import { Play, Send } from "lucide-react";
 
 type PreferenceNavProps = {
+  handleSubmit: () => void;
   settings: ISettings;
   setSettings: React.Dispatch<React.SetStateAction<ISettings>>;
 };
 
-const PreferenceNav: React.FC<PreferenceNavProps> = ({ setSettings, settings }) => {
+const PreferenceNav: React.FC<PreferenceNavProps> = ({ handleSubmit, setSettings, settings }) => {
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   const handleFullScreen = () => {
@@ -19,10 +20,6 @@ const PreferenceNav: React.FC<PreferenceNavProps> = ({ setSettings, settings }) 
       document.documentElement.requestFullscreen();
     }
     setIsFullScreen(!isFullScreen);
-  };
-
-  const handleSubmit = async () => {
-    // Submission logic here
   };
 
   useEffect(() => {
@@ -58,7 +55,7 @@ const PreferenceNav: React.FC<PreferenceNavProps> = ({ setSettings, settings }) 
           className='px-2 py-2 font-medium items-center transition-all focus:outline-none inline-flex text-sm text-white bg-dark-green-s  rounded-lg'
           onClick={handleSubmit}
         >
-          Запустить
+          Start
           <Play className="h-4 w-4 ml-1"/>
         </button>
       </div>

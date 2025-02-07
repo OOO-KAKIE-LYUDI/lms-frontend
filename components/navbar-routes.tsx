@@ -38,8 +38,8 @@ export const NavbarRoutes : React.FC<NavbarRoutesProps> = ({
           </Link>
         ) : isTeacher ? (
           <Link href="/teacher/courses">
-            <Button size="sm" variant="default">
-              Редактирвоание курсов
+            <Button size="sm" className="text-white bg-blue-900">
+              Редактирование курсов
             </Button>
           </Link>
         ) : null}

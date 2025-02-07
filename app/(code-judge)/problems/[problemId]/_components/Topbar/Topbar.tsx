@@ -19,7 +19,7 @@ const Topbar: React.FC<TopbarProps> = ({ problemPage }) => {
         <div className={`flex w-full items-center justify-between ${!problemPage ? "max-w-[1200px] mx-auto" : ""}`}>
           <Link href='/' className='flex items-center'>
             <Image src={codeIcon} alt='Logo' height={40} width={40}/>
-            <span className='text-zinc-800 ml-2 text-lg font-semibold'>CodeJudge v0.1</span>
+            <span className='text-zinc-800 ml-2 text-lg font-semibold'>C.O.D.E</span>
           </Link>
           <div className='flex items-center space-x-4 flex-1 justify-end'>
             {!user && (

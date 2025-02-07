@@ -1,83 +1,32 @@
 "use client";
 
-import React from "react";
-import { useRouter } from "next/navigation";
-import Topbar from "@/app/(code-judge)/problems/[problemId]/_components/Topbar/Topbar";
-import { Problem } from "@/utils/types/problem";
-import {
-    Table,
-    TableHeader,
-    TableBody,
-    TableRow,
-    TableHead,
-    TableCell,
-} from "@/components/ui/table";
-import { twoSum } from "@/utils/problems/two-sum";
-import { reverseLinkedList } from "@/utils/problems/reverse-linked-list";
-import { jumpGame } from "@/utils/problems/jump-game";
-import { search2DMatrix } from "@/utils/problems/search-a-2d-matrix";
-import { validParentheses } from "@/utils/problems/valid-parentheses";
-import { Card } from "@/components/ui/card";
-import {BsCheck2Circle} from "react-icons/bs";
+import React, { useState } from "react";
+import { ProblemsTable } from "@/app/(code-judge)/problems/[problemId]/_components/ProblemsTable/ProblemsTable";
+import { Navbar } from "@/app/(dashboard)/_components/navbar";
+import { Sidebar } from "@/app/(dashboard)/_components/Sidebar";
+import { ToastContainer } from "react-toastify";
 
-const mockedProblems: Problem[] = [twoSum, reverseLinkedList, jumpGame, search2DMatrix, validParentheses];
+const ProblemsPage = () => {
+  const [loadingProblems, setLoadingProblems] = useState(true);
 
-const ProblemListPage: React.FC = () => {
-    const router = useRouter();
+  return (
+    <div className="h-full ">
+      <div className="h-[80px] md:pl-56 fixed inset-y-0 w-full z-50 ">
+        <Navbar/>
+      </div>
+      <div className="hidden md:flex h-full w-56 flex-col fixed inset-y-0 z-50 ">
+        <Sidebar/>
+      </div>
+      <div className="md:pl-56 pt-[80px] h-full">
+        <main className="container mx-auto p-4">
+          <h1 className="text-2xl font-bold mb-4">Coding Problems</h1>
+          <ProblemsTable setLoadingProblems={setLoadingProblems}/>
+        </main>
+      </div>
+    </div>
 
-    const onClick = (problemId: string) => {
-        console.log(`Navigating to: /problems/${problemId}`);
-        router.push(`/problems/${problemId}`);
-    };
-
-    return (
-        <div style={{ height: "100vh", overflow: "hidden", width: "100%" }}>
-            <Topbar problemPage={false} />
-            <div className="p-6">
-                <h1 className="text-2xl font-bold mb-4">Problem List</h1>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>#</TableHead>
-                            <TableHead>Название</TableHead>
-                            <TableHead>Решено</TableHead>
-                            <TableHead className={`flex items-center justify-center`}>Сложность</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {mockedProblems.map((problem, index) => (
-                            <TableRow key={problem.id}
-                                      className="cursor-pointer hover:bg-gray-100"
-                                      onClick={() => onClick(problem.id)}>
-                                <TableCell>
-                                    {index + 1}
-                                </TableCell>
-                                <TableCell>
-                                    {problem.title}
-                                </TableCell>
-                                <TableCell>
-                                    {(problem.solved) && (
-                                        <div
-                                            className='rounded p-[3px] ml-4 text-lg transition-colors duration-200 text-green-s text-green-600'>
-                                            <BsCheck2Circle/>
-                                        </div>
-                                    )}
-                                </TableCell>
-                                <TableCell className={`flex items-center justify-center`}>
-                                    <div
-                                        className={`inline-block rounded-[21px] bg-opacity-[.15] py-2 px-3 text-xs font-medium capitalize ${problem.difficulty.color}`}
-                                        onClick={(e) => e.stopPropagation()}
-                                    >
-                                        {problem.difficulty.name}
-                                    </div>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </div>
-        </div>
-    );
+  )
+    ;
 };
 
-export default ProblemListPage;
+export default ProblemsPage;

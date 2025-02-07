@@ -1,6 +1,6 @@
 "use client";
 
-import { Layout, Compass, Code, List } from "lucide-react";
+import { Layout, Compass, Code, List, FileCode2 } from "lucide-react";
 import SidebarItem from "./sidebar-item";
 import { usePathname } from "next/navigation";
 
@@ -16,9 +16,9 @@ const STUDENTRoutes = [
         href: "/search",
     },
     {
-        icon: Code,
-        label: "Code Judge",
-        href: "/code-judge",
+        icon: FileCode2,
+        label: "Problems",
+        href: "/problems",
     }
 ]
 

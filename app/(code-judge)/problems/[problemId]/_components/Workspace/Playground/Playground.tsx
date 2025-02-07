@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+"use client"
+
+import React, { useEffect, useState } from "react";
 import PreferenceNav from "./PreferenceNav/PreferenceNav";
 import Split from "react-split";
 import CodeMirror from "@uiw/react-codemirror";
@@ -7,6 +9,9 @@ import { javascript } from "@codemirror/lang-javascript";
 import { Problem } from "@/utils/types/problem";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { TestTube2 } from 'lucide-react';
+import { problems } from "@/utils/problems";
+import { useRouter } from "next/navigation";
+import { toast, ToastContainer } from "react-toastify";
 
 type PlaygroundProps = {
   problem: Problem;
@@ -22,9 +27,11 @@ export interface ISettings {
 
 const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved }) => {
   const [activeTestCaseId, setActiveTestCaseId] = useState<number>(0);
-  const [userCode, setUserCode] = useState<string>(
-    problem.starterCode.padEnd(problem.starterCode.length + 25, '\n')
-  );
+  // const [userCode, setUserCode] = useState<string>(
+  //   problem.title.padEnd(problem.title.length + 25, '\n')
+  // );
+  let [userCode, setUserCode] = useState<string>(problem.starterCode);
+
   const [fontSize, setFontSize] = useLocalStorage("lcc-fontSize", "16px");
 
   const [settings, setSettings] = useState<ISettings>({
@@ -33,14 +40,83 @@ const Playground: React.FC<PlaygroundProps> = ({ problem, setSuccess, setSolved 
     dropdownIsOpen: false,
   });
 
+  const handleSubmit = async () => {
+    try {
+      userCode = userCode.slice(userCode.indexOf(problem.starterFunctionName));
+      const cb = new Function(`return ${userCode}`)();
+      const handler = problems[problem.id as string].handlerFunction;
+
+      if (typeof handler === "function") {
+        const success = handler(cb);
+        if (success) {
+          toast.success("Congrats! All tests passed!", {
+            position: "top-center",
+            autoClose: 3000,
+            theme: "dark",
+          });
+          setSuccess(true);
+          setTimeout(() => {
+            setSuccess(false);
+          }, 4000);
+
+          setSolved(true);
+        }
+      }
+    } catch (error: any) {
+      console.log(error.message);
+      if (
+        error.message.startsWith("AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:")
+      ) {
+        const lines = error.message.split('\n');
+        let actual, expected;
+
+        for (const line of lines) {
+          if (line.startsWith('+ ') && !line.includes('actual')) {
+            actual = line.substring(2);
+          }
+          if (line.startsWith('- ') && !line.includes('expected')) {
+            expected = line.substring(2);
+          }
+        }
+
+        toast.error(`Got: ${actual}; Expected: ${expected}`, {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "dark",
+        });
+      } else {
+        toast.error(error.message, {
+          position: "top-center",
+          autoClose: 3000,
+          theme: "dark",
+        });
+      }
+    }
+  };
+
+
+  useEffect(() => {
+    const code = localStorage.getItem(`code-${problem.id}`);
+    setUserCode(code ? JSON.parse(code) : problem.starterCode);
+
+  }, [problem.id, problem.starterCode]);
+
+  const onChange = (value: string) => {
+    setUserCode(value);
+    localStorage.setItem(`code-${problem.id}`, JSON.stringify(value));
+  };
+
   return (
     <div className='flex flex-col bg-light-layer-1 relative overflow-x-hidden'>
-      <PreferenceNav settings={settings} setSettings={setSettings}/>
+      <ToastContainer />
+
+      <PreferenceNav handleSubmit={handleSubmit} settings={settings} setSettings={setSettings}/>
       <Split className='mt-[4px] h-[calc(100vh)]' direction='vertical' sizes={[40, 60]} minSize={60}>
         <div className='w-full overflow-auto'>
           <CodeMirror
             value={userCode}
             theme={vscodeLight}
+            onChange={onChange}
             extensions={[javascript()]}
             style={{ fontSize: settings.fontSize }}
           />
